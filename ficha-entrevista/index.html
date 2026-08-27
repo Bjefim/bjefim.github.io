@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ficha de Entrevista — demonstração | Matheus de Siqueira</title>
+<meta name="description" content="Versão de demonstração da ficha de entrevista que construí e usei em processos seletivos reais. Preencha, avalie e gere o PDF — tudo no seu navegador.">
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --vermelho:#E63946; --vermelho-fundo:#B71D2B; --ambar:#FF9F1C;
+    --preto:#14110F; --creme:#FFF8F0; --cinza:#6B6560;
+    --linha:#E3D9CF; --papel:#fff;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--creme); color:var(--preto);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    font-size:15px; line-height:1.5;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:0 1.25rem 5rem}
+
+  /* ---------- topo ---------- */
+  .topo{
+    background:linear-gradient(150deg,var(--vermelho-fundo) 0%,#8E1522 60%,var(--preto) 100%);
+    color:var(--creme); padding:2.25rem 0 2rem; margin-bottom:1.5rem;
+  }
+  .topo .wrap{padding-bottom:0}
+  .volta{
+    display:inline-block;color:#FFC46B;text-decoration:none;font-size:.85rem;
+    letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:1rem;
+  }
+  .volta:hover{text-decoration:underline}
+  h1{font-size:clamp(1.5rem,4vw,2.1rem);margin:0 0 .4rem;line-height:1.15}
+  .sub{opacity:.92;font-size:.95rem;margin:0}
+
+  .aviso{
+    background:#FFF3D6;border-left:4px solid var(--ambar);
+    padding:.9rem 1rem;border-radius:0 10px 10px 0;margin:0 0 1.75rem;font-size:.9rem;
+  }
+  .aviso strong{display:block;margin-bottom:.2rem}
+
+  /* ---------- barra de ações ---------- */
+  .acoes{
+    display:flex;gap:.6rem;flex-wrap:wrap;position:sticky;top:0;z-index:20;
+    background:var(--creme);padding:.85rem 0;border-bottom:1px solid var(--linha);margin-bottom:1.5rem;
+  }
+  button{
+    font:inherit;font-weight:600;border-radius:999px;padding:.6rem 1.3rem;cursor:pointer;
+    border:1.5px solid var(--vermelho);transition:.15s;
+  }
+  .btn-pri{background:var(--vermelho);color:#fff}
+  .btn-pri:hover{background:var(--vermelho-fundo);border-color:var(--vermelho-fundo)}
+  .btn-sec{background:transparent;color:var(--vermelho)}
+  .btn-sec:hover{background:#FDECEE}
+  .media{margin-left:auto;align-self:center;font-size:.9rem;color:var(--cinza)}
+  .media b{color:var(--vermelho);font-size:1.15rem}
+
+  /* ---------- seções ---------- */
+  section{background:var(--papel);border:1px solid var(--linha);border-radius:14px;padding:1.4rem 1.3rem;margin-bottom:1.1rem}
+  h2{
+    font-size:.8rem;letter-spacing:.13em;text-transform:uppercase;color:var(--vermelho);
+    margin:0 0 1.1rem;padding-bottom:.5rem;border-bottom:1.5px solid var(--vermelho);
+  }
+  .grade{display:grid;gap:1rem 1.4rem;grid-template-columns:1fr}
+  @media(min-width:640px){.grade{grid-template-columns:1fr 1fr}.col2{grid-column:1/-1}}
+
+  label{display:block;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--cinza);font-weight:600;margin-bottom:.3rem}
+  input[type=text],input[type=email],textarea,select{
+    width:100%;font:inherit;color:var(--preto);background:transparent;
+    border:none;border-bottom:1.5px solid var(--linha);padding:.35rem 0;border-radius:0;
+  }
+  input:focus,textarea:focus,select:focus{outline:none;border-bottom-color:var(--vermelho)}
+  textarea{border:1.5px solid var(--linha);border-radius:10px;padding:.6rem;resize:vertical;min-height:90px}
+
+  .radios{display:flex;gap:1.2rem;flex-wrap:wrap;padding-top:.15rem}
+  .radios label{display:flex;align-items:center;gap:.35rem;text-transform:none;letter-spacing:0;font-size:.95rem;color:var(--preto);font-weight:400;margin:0;cursor:pointer}
+
+  /* ---------- roteiro ---------- */
+  .bloco{border:1px solid var(--linha);border-left:3px solid var(--ambar);border-radius:0 12px 12px 0;padding:.9rem 1rem;margin-bottom:.9rem;background:#FDFBF8}
+  .etapa{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ambar);font-weight:700;margin-bottom:.25rem}
+  .pergunta{font-weight:600;margin:0 0 .6rem;font-size:.97rem}
+
+  /* ---------- critérios ---------- */
+  .criterio{display:flex;align-items:center;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--linha);flex-wrap:wrap}
+  .criterio:last-child{border-bottom:none}
+  .criterio .nome{flex:1;min-width:190px;font-weight:500}
+  .notas{display:flex;gap:.35rem}
+  .notas input{position:absolute;opacity:0;width:0;height:0}
+  .notas span{
+    display:grid;place-items:center;width:34px;height:34px;border-radius:50%;
+    border:1.5px solid var(--linha);cursor:pointer;font-size:.9rem;font-weight:600;transition:.12s;
+  }
+  .notas input:checked + span{background:var(--vermelho);border-color:var(--vermelho);color:#fff}
+  .notas label:hover span{border-color:var(--vermelho)}
+  .notas label{margin:0;position:relative}
+
+  footer{margin-top:2rem;font-size:.85rem;color:var(--cinza);text-align:center}
+  footer a{color:var(--vermelho)}
+
+  /* ---------- impressão ---------- */
+  @media print{
+    @page{size:A4;margin:14mm}
+    body{background:#fff;font-size:11px}
+    .topo{background:none;color:var(--preto);padding:0 0 .6rem;border-bottom:2px solid var(--preto);margin-bottom:1rem}
+    .volta,.acoes,.aviso,footer{display:none!important}
+    .wrap{max-width:none;padding:0}
+    section{border:none;padding:0 0 .5rem;margin-bottom:.7rem;break-inside:avoid}
+    h2{color:var(--preto);border-bottom-color:var(--preto)}
+    .bloco{background:none;break-inside:avoid}
+    .notas input:checked + span{background:#000;border-color:#000;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    input,textarea{border-bottom:1px solid #999}
+    textarea{border:1px solid #999}
+  }
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <div class="wrap">
+    <a class="volta" href="../">← voltar ao portfólio</a>
+    <h1>Ficha de Entrevista — Vendedor</h1>
+    <p class="sub">Roteiro, registro e avaliação na mesma tela · gera o PDF ao final</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="aviso">
+    <strong>Versão de demonstração.</strong>
+    Esta é uma reconstrução em branco da ficha que construí e usei em processos seletivos reais. O roteiro
+    original era específico da empresa e não foi reproduzido aqui — as perguntas abaixo são genéricas, de
+    entrevista comercial. Nada do que você digitar é salvo ou enviado: tudo acontece no seu navegador.
+  </div>
+
+  <div class="acoes">
+    <button class="btn-pri" onclick="window.print()">Gerar PDF</button>
+    <button class="btn-sec" onclick="limpar()">Limpar ficha</button>
+    <div class="media">média <b id="media">—</b> <span id="cont"></span></div>
+  </div>
+
+  <form id="ficha">
+
+    <section>
+      <h2>Dados do candidato</h2>
+      <div class="grade">
+        <div><label>Nome completo</label><input type="text"></div>
+        <div><label>Idade</label><input type="text"></div>
+        <div><label>Telefone / WhatsApp</label><input type="text"></div>
+        <div><label>E-mail</label><input type="email"></div>
+        <div><label>Cidade / bairro</label><input type="text"></div>
+        <div><label>Data e horário da entrevista</label><input type="text" placeholder="dd/mm/aaaa — hh:mm"></div>
+        <div><label>Disponibilidade (h/semana)</label><input type="text"></div>
+        <div><label>Como soube da vaga</label><input type="text"></div>
+        <div class="col2">
+          <label>Já atuou com vendas? Onde e por quanto tempo?</label><input type="text">
+        </div>
+        <div>
+          <label>Tem meio de transporte próprio?</label>
+          <div class="radios">
+            <label><input type="radio" name="transporte"> Sim</label>
+            <label><input type="radio" name="transporte"> Não</label>
+          </div>
+        </div>
+        <div>
+          <label>Já trabalhou por comissão?</label>
+          <div class="radios">
+            <label><input type="radio" name="comissao"> Sim</label>
+            <label><input type="radio" name="comissao"> Não</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Roteiro da entrevista</h2>
+
+      <div class="bloco">
+        <div class="etapa">1 · Abertura</div>
+        <p class="pergunta">Sem pergunta. Agradecer a presença, explicar o formato e o tempo previsto, deixar a pessoa à vontade.</p>
+      </div>
+
+      <div class="bloco">
+        <div class="etapa">2 · Trajetória</div>
+        <p class="pergunta">Me conta seu caminho até aqui. O que você estava fazendo antes e o que te trouxe para essa vaga?</p>
+        <textarea placeholder="Resposta…"></textarea>
+      </div>
+
+      <div class="bloco">
+        <div class="etapa">3 · Experiência com meta</div>
+        <p class="pergunta">Você já trabalhou com meta? Como era acompanhada, e o que você fazia quando percebia que ia ficar abaixo?</p>
+        <textarea placeholder="Resposta…"></textarea>
+      </div>
+
+      <div class="bloco">
+        <div class="etapa">4 · Prospecção</div>
+        <p class="pergunta">Como você costuma encontrar um cliente novo? Me descreva os passos, do primeiro contato até a proposta.</p>
+        <textarea placeholder="Resposta…"></textarea>
+      </div>
+
+      <div class="bloco">
+        <div class="etapa">5 · Objeção</div>
+        <p class="pergunta">Me conta uma negociação em que ouviu não. O que a pessoa alegou e o que você fez depois disso?</p>
+        <textarea placeholder="Resposta…"></textarea>
+      </div>
+
+      <div class="bloco">
+        <div class="etapa">6 · Autonomia</div>
+        <p class="pergunta">Como você organiza seu dia quando ninguém está cobrando? O que te mantém no ritmo?</p>
+        <textarea placeholder="Resposta…"></textarea>
+      </div>
+
+      <div class="bloco">
+        <div class="etapa">7 · Expectativas</div>
+        <p class="pergunta">O que você espera dessa oportunidade nos próximos seis meses? E o que faria você desistir dela?</p>
+        <textarea placeholder="Resposta…"></textarea>
+      </div>
+
+      <div class="bloco">
+        <div class="etapa">8 · Perguntas do candidato</div>
+        <p class="pergunta">Abrir espaço. O que a pessoa pergunta diz muito sobre o que ela valoriza.</p>
+        <textarea placeholder="Resposta…"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Avaliação por critério</h2>
+      <div id="criterios"></div>
+    </section>
+
+    <section>
+      <h2>Anotações e parecer</h2>
+      <textarea style="min-height:130px" placeholder="Impressões gerais, pontos de atenção, recomendação…"></textarea>
+      <div style="margin-top:1rem">
+        <label>Encaminhamento</label>
+        <div class="radios">
+          <label><input type="radio" name="encaminhamento"> Segue para a próxima etapa</label>
+          <label><input type="radio" name="encaminhamento"> Banco de talentos</label>
+          <label><input type="radio" name="encaminhamento"> Não segue</label>
+        </div>
+      </div>
+    </section>
+
+  </form>
+
+  <footer>
+    Demonstração construída por <a href="../">Matheus de Siqueira</a> · nada é salvo ou enviado
+  </footer>
+</div>
+
+<script>
+  var CRITERIOS = [
+    "Comunicação e clareza",
+    "Experiência comercial",
+    "Resiliência diante de objeção",
+    "Autonomia e organização",
+    "Escuta e leitura do cliente",
+    "Motivação para a vaga",
+    "Aderência cultural"
+  ];
+
+  var alvo = document.getElementById('criterios');
+  CRITERIOS.forEach(function(nome, i){
+    var linha = document.createElement('div');
+    linha.className = 'criterio';
+    var notas = '';
+    for (var n = 1; n <= 5; n++){
+      notas += '<label><input type="radio" name="c'+i+'" value="'+n+'"><span>'+n+'</span></label>';
+    }
+    linha.innerHTML = '<div class="nome">'+nome+'</div><div class="notas">'+notas+'</div>';
+    alvo.appendChild(linha);
+  });
+
+  function atualizar(){
+    var soma = 0, qtd = 0;
+    CRITERIOS.forEach(function(_, i){
+      var m = document.querySelector('input[name="c'+i+'"]:checked');
+      if (m){ soma += Number(m.value); qtd++; }
+    });
+    document.getElementById('media').textContent = qtd ? (soma/qtd).toFixed(1) : '—';
+    document.getElementById('cont').textContent = qtd ? '(' + qtd + '/' + CRITERIOS.length + ')' : '';
+  }
+
+  document.getElementById('ficha').addEventListener('change', atualizar);
+
+  function limpar(){
+    if (!confirm('Apagar tudo o que foi preenchido?')) return;
+    document.getElementById('ficha').reset();
+    atualizar();
+  }
+
+  atualizar();
+</script>
+
+</body>
+</html>
