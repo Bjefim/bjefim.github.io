@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matheus de Siqueira — Ouço um problema. Volto com uma ferramenta.</title>
+  <meta name="description" content="Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Três projetos aqui dentro — e nenhum deles começou na frente de uma tela.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Matheus de Siqueira">
+  <meta property="og:title" content="Matheus de Siqueira — Ouço um problema. Volto com uma ferramenta.">
+  <meta property="og:description" content="Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Três projetos aqui dentro — e nenhum deles começou na frente de uma tela.">
+  <meta property="og:url" content="https://bjefim.github.io/">
+  <meta property="og:image" content="https://bjefim.github.io/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Matheus de Siqueira">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       1. TOKENS
+       ============================================================ */
+    :root {
+      --vermelho:       #E63946;
+      --vermelho-fundo: #B71D2B;
+      --ambar:          #FF9F1C;
+      --preto:          #14110F;
+      --creme:          #FFF8F0;
+      --cinza:          #6B6560;
+
+      /* derivados — superfícies e textos sobre fundo escuro */
+      --preto-card:     #1F1B19;
+      --preto-borda:    #332D29;
+      --cinza-claro:    #B5ADA6;   /* cinza secundário legível no escuro */
+
+      --max:      1080px;
+      --raio:     28px;
+      --raio-sm:  16px;
+      --sombra:   0 24px 60px -18px rgba(20, 17, 15, .45);
+      --sombra-forte: 0 32px 80px -20px rgba(20, 17, 15, .65);
+    }
+
+    /* ============================================================
+       2. BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-weight: 400;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--preto);
+      background: var(--creme);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    h1, h2, h3 {
+      font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: -.02em;
+      margin: 0;
+      text-wrap: balance;
+      overflow-wrap: break-word;
+    }
+
+    p { margin: 0 0 1.15em; overflow-wrap: break-word; }
+    a { color: inherit; }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--ambar);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* alternância de fundos ------------------------------------- */
+    .band--creme { background: var(--creme); color: var(--preto); }
+    .band--preto { background: var(--preto); color: var(--creme); }
+
+    main > section { padding: clamp(4.5rem, 11vw, 8.5rem) 0; }
+
+    /* olho-de-seção: rótulo pequeno em maiúsculas --------------- */
+    .eyebrow {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--vermelho-fundo);
+      margin: 0 0 1rem;
+    }
+    .band--preto .eyebrow { color: var(--ambar); }
+
+    .section-title {
+      font-size: clamp(2rem, 5.2vw, 3.4rem);
+      max-width: 20ch;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ============================================================
+       3. BOTÕES
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: 1rem 1.75rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 2px solid transparent;
+      transition: transform .25s ease, background-color .25s ease,
+                  color .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .btn--primary {
+      background: var(--creme);
+      color: var(--preto);
+      box-shadow: 0 12px 32px -10px rgba(0, 0, 0, .55);
+    }
+    .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -12px rgba(0, 0, 0, .6); }
+
+    .btn--ghost {
+      border-color: var(--creme);
+      color: var(--creme);
+    }
+    .btn--ghost:hover { border-color: var(--creme); background: rgba(255, 248, 240, .1); transform: translateY(-2px); }
+
+    /* variantes para uso sobre fundo claro */
+    .band--creme .btn--primary {
+      background: var(--vermelho-fundo);
+      color: var(--creme);
+      box-shadow: 0 14px 34px -12px rgba(183, 29, 43, .6);
+    }
+
+    /* ============================================================
+       4. HERO
+       ============================================================ */
+    .hero {
+      position: relative;
+      background:
+        radial-gradient(120% 120% at 82% 12%, rgba(255, 159, 28, .30) 0%, transparent 55%),
+        radial-gradient(100% 100% at 8% 92%, rgba(230, 57, 70, .55) 0%, transparent 60%),
+        linear-gradient(150deg, var(--vermelho-fundo) 0%, #8E1522 55%, var(--preto) 100%);
+      color: var(--creme);
+      padding: clamp(4.5rem, 12vw, 8rem) 0 clamp(4rem, 9vw, 7rem);
+      overflow: hidden;
+    }
+
+    /* véu leve, só atrás da coluna de texto — do lado da foto some por
+       completo, para o gradiente aparecer inteiro.
+       Cobre exatamente o hero, para a rampa ser previsível na tela. */
+    .hero__veu {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        90deg,
+        rgba(20, 17, 15, .38) 0%,
+        rgba(20, 17, 15, 0) 100%
+      );
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: clamp(2.5rem, 6vw, 4rem);
+      align-items: center;
+    }
+    @media (min-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr auto; }
+    }
+
+    /* em coluna única o texto atravessa toda a largura, inclusive a região
+       clara dos halos âmbar — que no desktop fica só atrás da foto.
+       Aqui o véu deixa de ser lateral e passa a cobrir por igual. */
+    @media (max-width: 899px) {
+      .hero__veu {
+        background: linear-gradient(
+          180deg,
+          rgba(20, 17, 15, .48) 0%,
+          rgba(20, 17, 15, .34) 100%
+        );
+      }
+    }
+
+    .hero__name {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #FFE3B8;
+      margin: 0 0 1.5rem;
+    }
+
+    .hero__headline {
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      max-width: 15ch;
+      margin: 0 0 1.75rem;
+    }
+
+    .hero__sub {
+      font-size: clamp(1.05rem, 1.9vw, 1.3rem);
+      color: var(--creme);
+      max-width: 46ch;
+      margin: 0 0 2.5rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .875rem;
+      margin: 0;
+    }
+
+    /* foto: nunca acima de 280px — a origem tem só 400×400 */
+    .hero__photo { margin: 0; justify-self: center; }
+    .hero__photo img {
+      /* teto de 280px (a origem é 400×400) e recuo em telas estreitas,
+         sem achatar o círculo: largura e altura andam juntas */
+      width: min(280px, calc(100vw - 4rem));
+      height: auto;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255, 248, 240, .9);
+      box-shadow:
+        0 0 0 12px rgba(255, 159, 28, .18),
+        0 30px 70px -20px rgba(0, 0, 0, .7);
+    }
+
+    /* ============================================================
+       5. FAIXA DE CONTEXTO
+       ============================================================ */
+    .context {
+      background: var(--preto);
+      color: var(--cinza-claro);
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--preto-borda);
+    }
+    .context p {
+      margin: 0;
+      font-size: .9375rem;
+      text-align: center;
+    }
+
+    /* ============================================================
+       6. MANIFESTO
+       ============================================================ */
+    .manifesto p {
+      font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.3rem, 3.1vw, 2.05rem);
+      line-height: 1.35;
+      letter-spacing: -.015em;
+      max-width: 26ch;
+      margin: 0 0 1.5rem;
+      text-wrap: balance;
+    }
+    .manifesto p:last-child { margin-bottom: 0; color: var(--vermelho-fundo); }
+
+    @media (min-width: 760px) {
+      .manifesto p { max-width: 34ch; }
+    }
+
+    /* ============================================================
+       7. PROJETOS
+       ============================================================ */
+    .projects__list {
+      display: grid;
+      gap: 1.75rem;
+      margin-top: 3rem;
+    }
+
+    .project {
+      background: var(--preto-card);
+      border: 1px solid var(--preto-borda);
+      border-radius: var(--raio);
+      padding: clamp(1.75rem, 4vw, 3rem);
+      box-shadow: var(--sombra-forte);
+      position: relative;
+      overflow: hidden;
+    }
+    /* filete de cor no topo do card */
+    .project::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--vermelho), var(--ambar));
+    }
+
+    .project__tag {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ambar);
+      border: 1px solid rgba(255, 159, 28, .35);
+      border-radius: 999px;
+      padding: .35rem .85rem;
+      margin: 0 0 1.25rem;
+    }
+
+    .project__title {
+      font-size: clamp(1.6rem, 3.6vw, 2.4rem);
+      margin: 0 0 1rem;
+      max-width: 22ch;
+    }
+
+    .project__summary {
+      font-size: clamp(1.02rem, 1.7vw, 1.15rem);
+      color: rgba(255, 248, 240, .84);
+      max-width: 58ch;
+      margin: 0 0 1.75rem;
+    }
+
+    .project__toggle {
+      font-family: inherit;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--creme);
+      background: transparent;
+      border: 2px solid rgba(255, 248, 240, .28);
+      border-radius: 999px;
+      padding: .75rem 1.4rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      transition: border-color .25s ease, background-color .25s ease;
+    }
+    .project__toggle:hover {
+      border-color: var(--ambar);
+      background: rgba(255, 159, 28, .1);
+    }
+    .project__toggle::after {
+      content: '';
+      width: .5rem; height: .5rem;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg) translate(-1px, -1px);
+      transition: transform .25s ease;
+    }
+    .project__toggle[aria-expanded="true"]::after {
+      transform: rotate(-135deg) translate(-2px, -2px);
+    }
+
+    /* altura animável: o espaçamento vive no invólucro interno, para que
+       o detalhe possa colapsar até 0 sem deixar sobra visível */
+    .project__detail {
+      height: 0;
+      overflow: hidden;
+      transition: height .45s cubic-bezier(.4, 0, .2, 1);
+    }
+    .project__detail-inner {
+      margin-top: 1.75rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--preto-borda);
+      max-width: 62ch;
+    }
+    .project__detail p { color: rgba(255, 248, 240, .78); }
+    .project-detail[hidden] { display: none; }
+
+    .project__status {
+      margin: 1.5rem 0 0;
+      padding: 1rem 1.25rem;
+      background: rgba(230, 57, 70, .12);
+      border-left: 3px solid var(--vermelho);
+      border-radius: 0 var(--raio-sm) var(--raio-sm) 0;
+      font-size: .95rem;
+    }
+    .project__detail .project__status p { color: rgba(255, 248, 240, .9); }
+    .project__status p:last-child { margin-bottom: 0; }
+    .project__status strong { color: var(--ambar); }
+
+    /* ============================================================
+       8. TRAJETÓRIA
+       ============================================================ */
+    .timeline__scroll {
+      margin: 3rem 0 0;
+      padding: 0 0 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .timeline__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 1.25rem;
+      position: relative;
+    }
+    /* trilho da linha do tempo — o desenho animado entra no Prompt 4 */
+    .timeline__list::before {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(107, 101, 96, .28);
+    }
+
+    .timeline__item {
+      flex: 0 0 clamp(200px, 46vw, 240px);
+      scroll-snap-align: start;
+      padding-top: 2.25rem;
+      position: relative;
+    }
+    .timeline__item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--vermelho);
+      box-shadow: 0 0 0 4px var(--creme);
+    }
+    .timeline__item:last-child::before { background: var(--ambar); }
+
+    .timeline__period {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      color: var(--vermelho-fundo);
+      margin: 0 0 .4rem;
+    }
+    .timeline__place {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0 0 .5rem;
+    }
+    .timeline__desc {
+      font-size: .95rem;
+      color: var(--cinza);
+      margin: 0;
+    }
+
+    .timeline__closing {
+      font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+      line-height: 1.4;
+      letter-spacing: -.015em;
+      max-width: 34ch;
+      margin: 2.5rem 0 0;
+      text-wrap: balance;
+    }
+
+    /* ============================================================
+       9. CERTIFICAÇÕES
+       ============================================================ */
+    .certs__list {
+      list-style: none;
+      margin: 3rem 0 0;
+      padding: 0;
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 700px) {
+      .certs__list { grid-template-columns: repeat(2, 1fr); }
+      .certs__list .cert:last-child { grid-column: 1 / -1; }
+    }
+
+    .cert {
+      background: var(--preto-card);
+      border: 1px solid var(--preto-borda);
+      border-radius: var(--raio-sm);
+      padding: 1.5rem 1.75rem;
+    }
+    .cert__issuer {
+      font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin: 0 0 .3rem;
+    }
+    .cert__name {
+      margin: 0;
+      font-size: .95rem;
+      color: var(--cinza-claro);
+    }
+
+    /* ============================================================
+       10. CONTATO
+       ============================================================ */
+    .contact__intro {
+      font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+      line-height: 1.4;
+      letter-spacing: -.015em;
+      max-width: 30ch;
+      margin: 0 0 2.5rem;
+    }
+
+    .contact__photo { margin: 0 0 1.75rem; }
+    .contact__photo img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--vermelho);
+      box-shadow: var(--sombra);
+    }
+
+    .contact__list {
+      list-style: none;
+      margin: 0 0 2.25rem;
+      padding: 0;
+      display: grid;
+      gap: .75rem;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+    .contact__list a {
+      text-decoration: none;
+      border-bottom: 2px solid var(--vermelho);
+      padding-bottom: 2px;
+      transition: color .2s ease;
+      word-break: break-word;
+    }
+    .contact__list a:hover { color: var(--vermelho); }
+
+    .contact__actions { margin: 0; }
+
+    /* ============================================================
+       11. RODAPÉ
+       ============================================================ */
+    .footer {
+      background: var(--preto);
+      color: var(--cinza-claro);
+      padding: 2.5rem 0;
+      font-size: .875rem;
+    }
+    .footer p { margin: 0; }
+
+    /* ============================================================
+       12. ANIMAÇÕES
+       ============================================================ */
+
+    /* -- 12.1 gradiente vivo do hero ---------------------------- */
+    /* dois halos desfocados que derivam devagar, em transform (GPU) */
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      pointer-events: none;
+      will-change: transform;
+      z-index: 0;
+    }
+    .hero::before {
+      width: 52vw; height: 52vw;
+      max-width: 620px; max-height: 620px;
+      top: -14%; left: -12%;
+      background: radial-gradient(circle, rgba(230, 57, 70, .75), transparent 68%);
+      animation: deriva-a 22s ease-in-out infinite alternate;
+    }
+    .hero::after {
+      width: 46vw; height: 46vw;
+      max-width: 540px; max-height: 540px;
+      bottom: -18%; right: -10%;
+      background: radial-gradient(circle, rgba(255, 159, 28, .45), transparent 70%);
+      animation: deriva-b 28s ease-in-out infinite alternate;
+    }
+    @keyframes deriva-a {
+      0%   { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(14%, 18%, 0) scale(1.18); }
+    }
+    @keyframes deriva-b {
+      0%   { transform: translate3d(0, 0, 0) scale(1.1); }
+      100% { transform: translate3d(-16%, -12%, 0) scale(1); }
+    }
+
+    /* -- 12.2 entrada do hero ----------------------------------- */
+    /* palavra por palavra: os <span> são criados pelo JS */
+    .palavra {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(.5em);
+      animation: sobe-palavra .75s cubic-bezier(.2, .7, .3, 1) forwards;
+    }
+    @keyframes sobe-palavra {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .js .hero__name,
+    .js .hero__sub,
+    .js .hero__actions {
+      opacity: 0;
+      animation: sobe-bloco .8s ease forwards;
+    }
+    .js .hero__name    { animation-delay: .1s; }
+    .js .hero__sub     { animation-delay: .75s; }
+    .js .hero__actions { animation-delay: .95s; }
+    @keyframes sobe-bloco {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* foto: entra com escala e o desfoque saindo */
+    .js .hero__photo img {
+      animation: entra-foto 1.25s cubic-bezier(.2, .7, .3, 1) .35s backwards;
+    }
+    @keyframes entra-foto {
+      from { opacity: 0; transform: scale(.86); filter: blur(18px); }
+      to   { opacity: 1; transform: scale(1);   filter: blur(0); }
+    }
+
+    /* -- 12.3 revelação ao rolar -------------------------------- */
+    /* a classe só é aplicada pelo JS: sem JS, tudo nasce visível */
+    .revelar {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s ease, transform .8s cubic-bezier(.2, .7, .3, 1);
+    }
+    .revelar.visivel { opacity: 1; transform: none; }
+
+    /* variante só de opacidade, para os cards — o transform deles
+       pertence à inclinação 3D e não pode ser sobrescrito aqui */
+    .revelar-fade {
+      opacity: 0;
+      transition: opacity .8s ease;
+    }
+    .revelar-fade.visivel { opacity: 1; }
+
+    /* -- 12.4 linha do tempo se desenhando ---------------------- */
+    .js .timeline__list::before {
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1.4s cubic-bezier(.4, 0, .2, 1);
+    }
+    .js .timeline__list.desenhada::before { transform: scaleX(1); }
+
+    .js .timeline__item::before {
+      opacity: 0;
+      transform: scale(.4);
+      transition: opacity .45s ease, transform .45s cubic-bezier(.2, .7, .3, 1);
+    }
+    .js .timeline__list.desenhada .timeline__item::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    /* os marcadores acendem em sequência, acompanhando a linha */
+    .js .timeline__item:nth-child(1)::before { transition-delay: .15s; }
+    .js .timeline__item:nth-child(2)::before { transition-delay: .35s; }
+    .js .timeline__item:nth-child(3)::before { transition-delay: .55s; }
+    .js .timeline__item:nth-child(4)::before { transition-delay: .75s; }
+    .js .timeline__item:nth-child(5)::before { transition-delay: .95s; }
+    .js .timeline__item:nth-child(6)::before { transition-delay: 1.15s; }
+
+    /* -- 12.5 cards: inclinação 3D e brilho --------------------- */
+    .project {
+      --mx: 50%;
+      --my: 50%;
+      --rx: 0deg;
+      --ry: 0deg;
+      transform: perspective(1400px) rotateX(var(--rx)) rotateY(var(--ry));
+      transition: transform .4s cubic-bezier(.2, .7, .3, 1), box-shadow .4s ease;
+    }
+    .project.inclinando { transition: transform .12s linear, box-shadow .4s ease; }
+
+    /* brilho seguindo o cursor; z-index negativo o mantém acima do
+       fundo do card e abaixo do texto */
+    .project::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .35s ease;
+      background: radial-gradient(
+        420px circle at var(--mx) var(--my),
+        rgba(255, 159, 28, .16),
+        rgba(230, 57, 70, .08) 40%,
+        transparent 68%
+      );
+    }
+    .project.inclinando::after { opacity: 1; }
+
+    /* ============================================================
+       13. MOBILE
+       ============================================================ */
+    @media (max-width: 767px) {
+      .hero__actions .btn { flex: 1 1 auto; justify-content: center; }
+      .project__status { border-radius: var(--raio-sm); }
+
+      /* trava: sem inclinação 3D e sem brilho de cursor no celular */
+      .project {
+        transform: none !important;
+        transition: box-shadow .4s ease;
+      }
+      .project::after { display: none; }
+      .hero::before, .hero::after { filter: blur(50px); }
+    }
+
+    /* ============================================================
+       14. MOVIMENTO REDUZIDO — desliga tudo
+       ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .palavra { opacity: 1; transform: none; }
+      .js .hero__name,
+      .js .hero__sub,
+      .js .hero__actions { opacity: 1; }
+      .js .hero__photo img { opacity: 1; filter: none; transform: none; }
+      .revelar, .revelar-fade { opacity: 1; transform: none; }
+      .js .timeline__list::before { transform: scaleX(1); }
+      .js .timeline__item::before { opacity: 1; transform: scale(1); }
+      .project { transform: none !important; }
+      .project::after { display: none; }
+    }
+  </style>
+
+  <script>
+    /* Marca que há JS antes da primeira pintura: as animações de entrada
+       só existem para quem consegue vê-las terminar. Sem JS, nada some. */
+    document.documentElement.classList.add('js');
+  </script>
+
+  <noscript>
+    <style>
+      /* sem JS não há como expandir: os detalhes ficam abertos */
+      .project__detail { height: auto !important; }
+      .project-detail[hidden] { display: block !important; }
+      .project__toggle { display: none; }
+    </style>
+  </noscript>
+</head>
+<body>
+
+  <!-- 1. HERO -->
+  <header class="hero" id="topo">
+    <div class="hero__veu" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <div class="hero__text">
+        <p class="hero__name">Matheus de Siqueira</p>
+        <h1 class="hero__headline">Ouço um problema. Volto com uma ferramenta.</h1>
+        <p class="hero__sub">Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Três projetos aqui dentro — e nenhum deles começou na frente de uma tela.</p>
+
+        <p class="hero__actions">
+          <a class="btn btn--primary" href="#projetos">Ver os projetos</a>
+          <a class="btn btn--ghost" href="assets/cv-matheus-siqueira.pdf" download>Baixar currículo</a>
+        </p>
+      </div>
+
+      <figure class="hero__photo">
+        <img src="assets/matheus.jpg" alt="Matheus de Siqueira" width="280" height="280">
+      </figure>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- 2. FAIXA DE CONTEXTO -->
+    <aside class="context" aria-label="Contexto do portfólio">
+      <div class="wrap">
+        <p>Este portfólio nasceu de uma candidatura ao iFuture 2027, o programa de estágio do iFood.</p>
+      </div>
+    </aside>
+
+    <!-- 3. MANIFESTO -->
+    <section class="manifesto band--creme" id="manifesto" aria-labelledby="manifesto-titulo">
+      <div class="wrap">
+        <h2 id="manifesto-titulo" class="sr-only">Manifesto</h2>
+        <p>Nenhum destes projetos começou em “quero testar uma inteligência artificial”.</p>
+        <p>Um começou comigo como cliente, esbarrando sempre nos mesmos cardápios mal montados dentro de um aplicativo que eu uso toda semana. Outro começou com um amigo me contando que uma funcionária da loja da família perdia manhãs inteiras mandando mensagem de aniversário na mão. O terceiro começou comigo de novo, perdido entre três abas no meio de uma entrevista de emprego que eu mesmo conduzia.</p>
+        <p>Aprendi IA construindo, não assistindo. É por isso que todos eles resolvem um problema que existia antes de eu saber programar.</p>
+      </div>
+    </section>
+
+    <!-- 4. PROJETOS -->
+    <section class="projects band--preto" id="projetos" aria-labelledby="projetos-titulo">
+      <div class="wrap">
+        <p class="eyebrow">Três projetos</p>
+        <h2 id="projetos-titulo" class="section-title">Cada um começou numa reclamação.</h2>
+
+        <div class="projects__list">
+
+          <!-- Projeto 1 -->
+          <article class="project" id="projeto-1">
+            <p class="project__tag">Projeto descontinuado · 2026</p>
+            <h3 class="project__title">Repaginação de perfis no iFood</h3>
+            <p class="project__summary">Sou consumidor assíduo do iFood e vivia esbarrando na mesma cena: restaurante bom, cardápio mal montado. Item sem foto, descrição que não descreve nada, vitrine bagunçada. Decidi transformar isso num serviço — e no mais automatizado que eu conseguisse construir.</p>
+
+            <button class="project__toggle" type="button"
+                    aria-expanded="false" aria-controls="projeto-1-detalhe">
+              <span class="project__toggle-label">Ver detalhes</span>
+            </button>
+
+            <div class="project__detail project-detail" id="projeto-1-detalhe" hidden>
+             <div class="project__detail-inner">
+              <p>A ferramenta encadeia agentes de IA em uma sequência completa. Ela avalia o perfil com uma rubrica objetiva de 0 a 10, com pesos definidos por tipo de problema — itens sem foto pesam 40%, descrições ausentes ou fracas 25%, destaques mal curados 15%, categorias confusas 10%, ausência de promoções 10%.</p>
+              <p>Em paralelo, calcula um score de oportunidade que considera se a loja é estabelecida, a nota e o volume de avaliações, e sinais de que o mesmo dono opera outras marcas.</p>
+              <p>A partir do diagnóstico, ela reescreve as descrições dos pratos com foco em clareza de oferta e apelo de compra, e trata ou gera as imagens correspondentes.</p>
+              <p>Um agente fecha o ciclo: monta o comparativo antes-e-depois da vitrine e já estrutura a mensagem que iria para o WhatsApp do restaurante, pronta para revisão. Nada dispara sozinho — a IA prepara a peça inteira, mas a verificação e a validação continuam sendo de uma pessoa.</p>
+              <p>Construí também as regras de bom senso: pular grandes redes, pular lojas recém-chegadas — que já recebem apoio da própria plataforma nos primeiros dias — e parar sozinha diante de qualquer verificação anti-robô, em vez de tentar contorná-la.</p>
+              <div class="project__status">
+                <p><strong>Status:</strong> Descontinuado. Aprofundando o estudo do mercado, descobri que a própria plataforma já oferece esse acompanhamento aos parceiros, através dos seus agentes comerciais. Preferi encerrar a insistir num problema que já tinha dono.</p>
+                <p>Mantenho o projeto aqui porque foi ele que me ensinou a encadear agentes de IA de ponta a ponta — e porque saber a hora de parar também é resultado.</p>
+              </div>
+             </div>
+            </div>
+          </article>
+
+          <!-- Projeto 2 -->
+          <article class="project" id="projeto-2">
+            <p class="project__tag">Em implantação · 2026</p>
+            <h3 class="project__title">Automação de relacionamento — Salada de Frutas</h3>
+            <p class="project__summary">Meu amigo, neto da dona de uma das maiores lojas de roupa da minha cidade, me contou que uma funcionária gastava manhãs inteiras mandando mensagem de parabéns para os aniversariantes do dia. Uma pessoa, uma manhã, todo dia.</p>
+
+            <button class="project__toggle" type="button"
+                    aria-expanded="false" aria-controls="projeto-2-detalhe">
+              <span class="project__toggle-label">Ver detalhes</span>
+            </button>
+
+            <div class="project__detail project-detail" id="projeto-2-detalhe" hidden>
+             <div class="project__detail-inner">
+              <p>O aplicativo lê a base de clientes direto do ERP da loja e dispara mensagens pela integração com o WhatsApp Business, em modo automático ou semiautomático — com aprovação humana antes do envio quando a campanha pede cuidado.</p>
+              <p>Cobre aniversários, promoções, campanhas sazonais, lembretes e cobrança de carnê. O que era trabalho manual repetido todo dia virou uma rotina que roda sozinha, e a atendente voltou a atender.</p>
+              <p class="project__status"><strong>Status:</strong> Fase final de desenvolvimento. Implantação para teste prevista para setembro de 2026.</p>
+             </div>
+            </div>
+          </article>
+
+          <!-- Projeto 3 -->
+          <article class="project" id="projeto-3">
+            <p class="project__tag">Usada em processos reais · 2026</p>
+            <h3 class="project__title">Ficha de entrevista — Connecta Energia</h3>
+            <p class="project__summary">Eu conduzia as entrevistas de seleção da Connecta e vivia com o roteiro numa aba, minhas anotações em outra e a ficha do candidato numa terceira. Perdia atenção no candidato para não perder a pergunta.</p>
+
+            <button class="project__toggle" type="button"
+                    aria-expanded="false" aria-controls="projeto-3-detalhe">
+              <span class="project__toggle-label">Ver detalhes</span>
+            </button>
+
+            <div class="project__detail project-detail" id="projeto-3-detalhe" hidden>
+             <div class="project__detail-inner">
+              <p>Construí uma ficha única que resolve as três coisas na mesma tela: o roteiro de perguntas à vista, o campo para registrar as respostas enquanto o candidato fala, e a avaliação por critério com nota.</p>
+              <p>Ao final da entrevista, um clique gera o PDF com a ficha cadastral completa do candidato, pronta para arquivo e para comparação entre finalistas.</p>
+              <p class="project__status"><strong>Status:</strong> Construída, testada e usada por mim nas entrevistas reais da empresa.</p>
+             </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. TRAJETÓRIA -->
+    <section class="timeline band--creme" id="trajetoria" aria-labelledby="trajetoria-titulo">
+      <div class="wrap">
+        <p class="eyebrow">Trajetória</p>
+        <h2 id="trajetoria-titulo" class="section-title">Antes de construir ferramentas, eu vendi.</h2>
+
+        <div class="timeline__scroll">
+          <ol class="timeline__list">
+            <li class="timeline__item">
+              <p class="timeline__period">2021–2023</p>
+              <h3 class="timeline__place">Itaú/REDE</h3>
+              <p class="timeline__desc">Entrei como estagiário em Volta Redonda e fui efetivado como Executivo REDE em menos de um ano.</p>
+            </li>
+            <li class="timeline__item">
+              <p class="timeline__period">2023</p>
+              <h3 class="timeline__place">Banco Safra</h3>
+              <p class="timeline__desc">Executivo de Contas Safrapay.</p>
+            </li>
+            <li class="timeline__item">
+              <p class="timeline__period">2023</p>
+              <h3 class="timeline__place">Sicoob Credirochas</h3>
+              <p class="timeline__desc">Agente de Relacionamento.</p>
+            </li>
+            <li class="timeline__item">
+              <p class="timeline__period">2024–2025</p>
+              <h3 class="timeline__place">Sol Copérnico</h3>
+              <p class="timeline__desc">Consultor de Vendas.</p>
+            </li>
+            <li class="timeline__item">
+              <p class="timeline__period">2025</p>
+              <h3 class="timeline__place">Rheserva Consultoria</h3>
+              <p class="timeline__desc">Estagiário Comercial.</p>
+            </li>
+            <li class="timeline__item">
+              <p class="timeline__period">2026</p>
+              <h3 class="timeline__place">Connecta Energia</h3>
+              <p class="timeline__desc">Parcerias comerciais e Recrutamento &amp; Seleção.</p>
+            </li>
+          </ol>
+        </div>
+
+        <p class="timeline__closing">Cinco anos negociando com donos de pequenos e médios negócios. É de onde vem a minha noção do que faz um comerciante dizer sim — e é por isso que as ferramentas que eu construo resolvem problemas de gente, não de código.</p>
+      </div>
+    </section>
+
+    <!-- 6. CERTIFICAÇÕES -->
+    <section class="certs band--preto" id="certificacoes" aria-labelledby="certs-titulo">
+      <div class="wrap">
+        <p class="eyebrow">Formação</p>
+        <h2 id="certs-titulo" class="section-title">Onde aprendi</h2>
+        <ul class="certs__list">
+          <li class="cert">
+            <p class="cert__issuer">OpenAI Academy</p>
+            <p class="cert__name">AI Foundations · Applied AI Foundations (2026)</p>
+          </li>
+          <li class="cert">
+            <p class="cert__issuer">Anthropic</p>
+            <p class="cert__name">Claude 101 · Introduction to Claude Cowork (2026)</p>
+          </li>
+          <li class="cert">
+            <p class="cert__issuer">Educação Sólides</p>
+            <p class="cert__name">Recrutamento e Seleção por Competências (2026)</p>
+          </li>
+          <li class="cert">
+            <p class="cert__issuer">Universidade Estácio de Sá</p>
+            <p class="cert__name">Tecnólogo em Marketing (concluído em 2023)</p>
+          </li>
+          <li class="cert">
+            <p class="cert__issuer">Universidade de Vassouras</p>
+            <p class="cert__name">Psicologia (em curso)</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. CONTATO -->
+    <section class="contact band--creme" id="contato" aria-labelledby="contato-titulo">
+      <div class="wrap">
+        <p class="eyebrow">Contato</p>
+        <h2 id="contato-titulo" class="section-title">Vamos conversar!</h2>
+        <p class="contact__intro">Se você procura um estagiário protagonista, apaixonado por IA e com fome de aprender resolvendo problema de verdade — me chama.</p>
+
+        <figure class="contact__photo">
+          <img src="assets/matheus.jpg" alt="Matheus de Siqueira" width="200" height="200">
+        </figure>
+
+        <ul class="contact__list">
+          <li><a href="mailto:masquetheus@gmail.com">masquetheus@gmail.com</a></li>
+          <li><a href="https://linkedin.com/in/siqueira-de-matheus" target="_blank" rel="noopener">linkedin.com/in/siqueira-de-matheus</a></li>
+          <li><a href="https://wa.me/5524988178894" target="_blank" rel="noopener">(24) 98817-8894</a></li>
+        </ul>
+
+        <p class="contact__actions">
+          <a class="btn btn--primary" href="assets/cv-matheus-siqueira.pdf" download>Baixar currículo (PDF)</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Matheus de Siqueira · 2026</p>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var desktop      = window.matchMedia('(min-width: 768px)');
+
+    /* =========================================================
+       1. HEADLINE PALAVRA POR PALAVRA
+       ========================================================= */
+    var headline = document.querySelector('.hero__headline');
+    if (headline && !semMovimento) {
+      var palavras = headline.textContent.trim().split(/\s+/);
+      headline.textContent = '';
+      palavras.forEach(function (palavra, i) {
+        var span = document.createElement('span');
+        span.className = 'palavra';
+        span.textContent = palavra;
+        span.style.animationDelay = (0.2 + i * 0.075).toFixed(3) + 's';
+        headline.appendChild(span);
+        if (i < palavras.length - 1) {
+          headline.appendChild(document.createTextNode(' '));
+        }
+      });
+    }
+
+    /* =========================================================
+       2. REVELAÇÃO AO ROLAR
+       ========================================================= */
+    var suportaObserver = 'IntersectionObserver' in window;
+
+    if (!semMovimento && suportaObserver) {
+      var observador = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (entrada) {
+          if (!entrada.isIntersecting) return;
+          entrada.target.classList.add('visivel');
+          observador.unobserve(entrada.target);
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
+
+      // blocos que sobem de baixo para cima
+      var blocos = document.querySelectorAll(
+        '.context p, .manifesto p, .eyebrow, .section-title, ' +
+        '.timeline__closing, .contact__intro, .contact__photo, ' +
+        '.contact__list, .contact__actions'
+      );
+      blocos.forEach(function (bloco) {
+        bloco.classList.add('revelar');
+        observador.observe(bloco);
+      });
+
+      // cards: só opacidade, em sequência (o transform é da inclinação 3D)
+      document.querySelectorAll('.project').forEach(function (card, i) {
+        card.classList.add('revelar-fade');
+        card.style.transitionDelay = (i * 0.1).toFixed(2) + 's';
+        observador.observe(card);
+      });
+
+      document.querySelectorAll('.cert').forEach(function (cert, i) {
+        cert.classList.add('revelar');
+        cert.style.transitionDelay = (i * 0.08).toFixed(2) + 's';
+        observador.observe(cert);
+      });
+    }
+
+    /* =========================================================
+       3. LINHA DO TEMPO SE DESENHANDO
+       ========================================================= */
+    var linha = document.querySelector('.timeline__list');
+    if (linha && !semMovimento && suportaObserver) {
+      var observadorLinha = new IntersectionObserver(function (entradas) {
+        entradas.forEach(function (entrada) {
+          if (!entrada.isIntersecting) return;
+          entrada.target.classList.add('desenhada');
+          observadorLinha.unobserve(entrada.target);
+        });
+      }, { threshold: 0.2 });
+      observadorLinha.observe(linha);
+    } else if (linha) {
+      linha.classList.add('desenhada');
+    }
+
+    /* =========================================================
+       4. CARDS: INCLINAÇÃO 3D E BRILHO NO CURSOR
+       ========================================================= */
+    document.querySelectorAll('.project').forEach(function (card) {
+      var agendado = false;
+      var evento = null;
+
+      card.addEventListener('mousemove', function (e) {
+        // travas: nada disso no celular nem com movimento reduzido
+        if (semMovimento || !desktop.matches) return;
+
+        evento = e;
+        if (agendado) return;
+        agendado = true;
+
+        requestAnimationFrame(function () {
+          agendado = false;
+          var caixa = card.getBoundingClientRect();
+          var px = (evento.clientX - caixa.left) / caixa.width;
+          var py = (evento.clientY - caixa.top) / caixa.height;
+
+          card.classList.add('inclinando');
+          card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+          card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+          card.style.setProperty('--ry', ((px - 0.5) * 5).toFixed(2) + 'deg');
+          card.style.setProperty('--rx', ((0.5 - py) * 5).toFixed(2) + 'deg');
+        });
+      });
+
+      card.addEventListener('mouseleave', function () {
+        card.classList.remove('inclinando');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+
+    /* =========================================================
+       5. EXPANSÃO DOS CARDS
+       ========================================================= */
+    function alturaReal(interno) {
+      // a margem do invólucro conta: ele vive dentro de um overflow:hidden,
+      // então ela ocupa espaço em vez de colapsar para fora
+      var margem = parseFloat(window.getComputedStyle(interno).marginTop) || 0;
+      return interno.offsetHeight + margem;
+    }
+
+    document.querySelectorAll('.project__toggle').forEach(function (botao) {
+      var detalhe = document.getElementById(botao.getAttribute('aria-controls'));
+      var interno = detalhe.querySelector('.project__detail-inner');
+      var rotulo  = botao.querySelector('.project__toggle-label');
+
+      botao.addEventListener('click', function () {
+        var aberto = botao.getAttribute('aria-expanded') === 'true';
+
+        botao.setAttribute('aria-expanded', String(!aberto));
+        rotulo.textContent = aberto ? 'Ver detalhes' : 'Fechar';
+
+        // sem transição, não há transitionend para esperar: troca direta
+        if (semMovimento) {
+          detalhe.hidden = aberto;
+          detalhe.style.height = aberto ? '0px' : 'auto';
+          return;
+        }
+
+        if (aberto) {
+          detalhe.style.height = alturaReal(interno) + 'px';
+          requestAnimationFrame(function () {
+            detalhe.style.height = '0px';
+          });
+        } else {
+          detalhe.hidden = false;
+          detalhe.style.height = '0px';
+          requestAnimationFrame(function () {
+            detalhe.style.height = alturaReal(interno) + 'px';
+          });
+        }
+      });
+
+      detalhe.addEventListener('transitionend', function (e) {
+        if (e.propertyName !== 'height' || e.target !== detalhe) return;
+
+        if (botao.getAttribute('aria-expanded') === 'true') {
+          // solta a altura: o conteúdo pode refluir depois (rotação de tela)
+          detalhe.style.height = 'auto';
+        } else {
+          detalhe.hidden = true;
+        }
+      });
+    });
+  })();
+  </script>
+
+</body>
+</html>
