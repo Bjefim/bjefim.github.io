@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Matheus de Siqueira — Ouço um problema. Volto com uma ferramenta.</title>
-  <meta name="description" content="Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Três projetos aqui dentro — e nenhum deles começou na frente de uma tela.">
+  <meta name="description" content="Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Quatro projetos aqui dentro — e nenhum deles começou na frente de uma tela.">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Matheus de Siqueira">
   <meta property="og:title" content="Matheus de Siqueira — Ouço um problema. Volto com uma ferramenta.">
-  <meta property="og:description" content="Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Três projetos aqui dentro — e nenhum deles começou na frente de uma tela.">
+  <meta property="og:description" content="Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Quatro projetos aqui dentro — e nenhum deles começou na frente de uma tela.">
   <meta property="og:url" content="https://bjefim.github.io/">
   <meta property="og:image" content="https://bjefim.github.io/assets/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -375,6 +375,42 @@
 
     /* altura animável: o espaçamento vive no invólucro interno, para que
        o detalhe possa colapsar até 0 sem deixar sobra visível */
+    /* links externos — só o card do canal os tem: é o único projeto
+       que o leitor pode abrir e ver funcionando */
+    .project__links {
+      list-style: none;
+      margin: 0 0 1.75rem;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+    }
+    .project__link {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .7rem 1.25rem;
+      border-radius: 999px;
+      background: rgba(255, 159, 28, .12);
+      border: 2px solid var(--ambar);
+      color: var(--creme);
+      font-weight: 600;
+      font-size: .95rem;
+      text-decoration: none;
+      transition: background-color .25s ease, transform .25s ease;
+    }
+    .project__link:hover {
+      background: rgba(255, 159, 28, .24);
+      transform: translateY(-2px);
+    }
+    /* seta de "abre fora do site" */
+    .project__link::after {
+      content: '↗';
+      font-size: 1.05em;
+      line-height: 1;
+      color: var(--ambar);
+    }
+
     .project__detail {
       height: 0;
       overflow: hidden;
@@ -776,7 +812,7 @@
       <div class="hero__text">
         <p class="hero__name">Matheus de Siqueira</p>
         <h1 class="hero__headline">Ouço um problema. Volto com uma ferramenta.</h1>
-        <p class="hero__sub">Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Três projetos aqui dentro — e nenhum deles começou na frente de uma tela.</p>
+        <p class="hero__sub">Tecnólogo em Marketing, estudante de Psicologia e construtor de ferramentas de IA. Quatro projetos aqui dentro — e nenhum deles começou na frente de uma tela.</p>
 
         <p class="hero__actions">
           <a class="btn btn--primary" href="#projetos">Ver os projetos</a>
@@ -812,7 +848,7 @@
     <!-- 4. PROJETOS -->
     <section class="projects band--preto" id="projetos" aria-labelledby="projetos-titulo">
       <div class="wrap">
-        <p class="eyebrow">Três projetos</p>
+        <p class="eyebrow">Quatro projetos</p>
         <h2 id="projetos-titulo" class="section-title">Cada um começou numa reclamação.</h2>
 
         <div class="projects__list">
@@ -879,6 +915,47 @@
               <p>Construí uma ficha única que resolve as três coisas na mesma tela: o roteiro de perguntas à vista, o campo para registrar as respostas enquanto o candidato fala, e a avaliação por critério com nota.</p>
               <p>Ao final da entrevista, um clique gera o PDF com a ficha cadastral completa do candidato, pronta para arquivo e para comparação entre finalistas.</p>
               <p class="project__status"><strong>Status:</strong> Construída, testada e usada por mim nas entrevistas reais da empresa.</p>
+             </div>
+            </div>
+          </article>
+
+          <!-- Projeto 4 -->
+          <article class="project" id="projeto-4">
+            <p class="project__tag">26 vídeos publicados · 2026</p>
+            <h3 class="project__title">Fatos Ocultos da História — canal de vídeos curtos</h3>
+            <p class="project__summary">História que não coube na aula, em vídeo curto, publicado todo dia no YouTube Shorts e no TikTok. João Pessoa levando dois tiros e a República caindo em 69 dias. João Cândido vencendo a Marinha e terminando num hospício. A Copa que Mussolini ganhou antes de jogar. Vinte e seis episódios, um por dia, do roteiro à publicação — sozinho.</p>
+
+            <ul class="project__links">
+              <li>
+                <a class="project__link" href="https://www.youtube.com/@fatos.ocultos.historia"
+                   target="_blank" rel="noopener">Ver no YouTube</a>
+              </li>
+              <li>
+                <a class="project__link" href="https://www.tiktok.com/@fatos.ocultos.historia"
+                   target="_blank" rel="noopener">Ver no TikTok</a>
+              </li>
+            </ul>
+
+            <button class="project__toggle" type="button"
+                    aria-expanded="false" aria-controls="projeto-4-detalhe">
+              <span class="project__toggle-label">Ver detalhes</span>
+            </button>
+
+            <div class="project__detail project-detail" id="projeto-4-detalhe" hidden>
+             <div class="project__detail-inner">
+
+              <!-- ============================================================
+                   PENDENTE — Matheus preenche.
+                   Descrever como a IA entra na produção: pesquisa e checagem
+                   do fato, roteiro, narração, edição, thumbnail, legendas,
+                   publicação.
+                   Colar o texto final dentro do <p> abaixo e remover este
+                   comentário junto com o parágrafo vazio.
+                   ============================================================ -->
+
+              <p>A parte difícil de um canal diário não é gravar: é sustentar o ritmo. Montei o fluxo para que a produção de um episódio coubesse numa fração do dia, o que só funciona porque cada etapa repetitiva virou processo, e não decisão nova toda vez.</p>
+              <p>A curadoria é minha e é o que não dá para automatizar: escolher qual fato esquecido merece dois minutos, e como contá-lo sem virar sensacionalismo.</p>
+              <p class="project__status"><strong>Status:</strong> Em pausa, por decisão de prioridade. Concentrei o tempo no que tinha retorno mais imediato — o aplicativo da Salada de Frutas, a faculdade e um site em negociação. O canal continua no ar, e os episódios seguem disponíveis nas duas plataformas.</p>
              </div>
             </div>
           </article>
