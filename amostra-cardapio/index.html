@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardápio antes e depois — amostra | Matheus de Siqueira</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif; }
+  body { background:#f2f2f2; display:flex; justify-content:center; padding:16px; }
+  .phone { width:100%; max-width:420px; background:#fff; border-radius:24px; overflow:hidden; box-shadow:0 8px 40px rgba(0,0,0,.18); }
+  .topbar { background:#E63946; color:#fff; padding:14px 16px; text-align:center; }
+  .topbar h1 { font-size:15px; font-weight:600; }
+  .tabs { display:flex; }
+  .tab { flex:1; padding:13px 0; text-align:center; font-weight:700; font-size:14px; cursor:pointer; background:#fafafa; color:#717171; border-bottom:3px solid transparent; }
+  .tab.active { color:#E63946; border-bottom-color:#E63946; background:#fff; }
+  .banner { padding:16px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #eee; }
+  .logo { width:48px; height:48px; border-radius:50%; background:#1a1a1a; color:#fff; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; text-align:center; line-height:1.1; }
+  .storename { font-size:17px; font-weight:700; color:#3e3e3e; }
+  .storemeta { font-size:12px; color:#717171; margin-top:2px; }
+  .star { color:#e8a53a; font-weight:700; }
+  .section { padding:14px 16px 4px; font-size:16px; font-weight:700; color:#3e3e3e; }
+  .card { display:flex; justify-content:space-between; gap:10px; padding:12px 16px; border-bottom:1px solid #f1f1f1; }
+  .info { flex:1; }
+  .iname { font-size:14.5px; font-weight:600; color:#3e3e3e; }
+  .idesc { font-size:12px; color:#717171; margin-top:4px; line-height:1.45; max-height:52px; overflow:hidden; }
+  .iprice { font-size:14px; font-weight:600; color:#3cb371; margin-top:6px; }
+  .iprice .old { color:#a6a6a6; text-decoration:line-through; font-weight:400; font-size:12px; margin-left:6px; }
+  .thumb { width:88px; height:88px; border-radius:8px; flex-shrink:0; object-fit:cover; object-position:50% 32%; transform:scale(1.0); background:#ececec; }
+  .nophoto { width:88px; height:88px; border-radius:8px; flex-shrink:0; background:#e8f0e8; display:flex; align-items:center; justify-content:center; color:#9db89d; font-size:10px; text-align:center; padding:6px; }
+  .dark { filter:brightness(.55) saturate(.75); }
+  .tagilus { position:absolute; bottom:6px; right:6px; background:rgba(0,0,0,.6); color:#fff; font-size:8.5px; padding:2px 5px; border-radius:4px; }
+  .imgwrap { position:relative; flex-shrink:0; }
+  .note { background:#fff8e6; color:#8a6d1a; font-size:11.5px; padding:10px 16px; line-height:1.5; }
+  .footer { padding:14px 16px 20px; font-size:10.5px; color:#a0a0a0; line-height:1.5; text-align:center; }
+  .hidden { display:none; }
+  .quebrada { background:#ececec; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="topbar"><h1>Cardápio: antes e depois — simulação</h1></div>
+  <div style="padding:9px 16px;background:#fafafa;border-bottom:1px solid #eee;font-size:12px"><a href="../" style="color:#E63946;text-decoration:none;font-weight:600">← voltar ao portfólio</a></div>
+  <div class="tabs">
+    <div class="tab active" id="tabA" onclick="show('antes')">ANTES (hoje)</div>
+    <div class="tab" id="tabD" onclick="show('depois')">DEPOIS (proposta)</div>
+  </div>
+
+  <!-- ===================== ANTES ===================== -->
+  <div id="antes">
+    <div class="banner">
+      <div class="logo">LOGO</div>
+      <div><div class="storename">Hamburgueria · perfil real anonimizado</div>
+      <div class="storemeta"><span class="star">★ 4.6</span> • Lanches • Pedido mínimo R$ 27,90</div></div>
+    </div>
+    <div class="section">Destaques</div>
+    <div class="card"><div class="info"><div class="iname">Coca-Cola Zero sem açúcar 200ml pet</div><div class="idesc">Coca-Cola Zero sem açúcar 200ml pet</div><div class="iprice">R$ 4,99 <span class="old">R$ 7,99</span></div></div><div class="nophoto" style="background:#fbe9e7;color:#c98">foto de garrafa</div></div>
+    <div class="card"><div class="info"><div class="iname">H2O 500ml Garrafa</div><div class="idesc">H2O 500ml Garrafa. Indicado para 01 pessoa.</div><div class="iprice">R$ 8,90 <span class="old">R$ 12,90</span></div></div><div class="nophoto" style="background:#fbe9e7;color:#c98">foto de garrafa</div></div>
+    <div class="section">Hamburguer Tradicional Individual Barato</div>
+    <div class="card"><div class="info"><div class="iname">Hambúrguer X-Bacon Tradicional</div><div class="idesc">Pão brioche, bife de hambúrguer, bacon em cubos, queijo mussarela, alface, tomate, batata palha, milho e molho especial #hamburguer #hamburguerartesanal #hamburgueria #hamburguerperfeito #hamburguergourmet #burger #lanche #batatafrita #bacon</div><div class="iprice">R$ 19,90 <span class="old">R$ 27,90</span></div></div><div class="nophoto" style="background:#3a3a3a;color:#9a9a9a">foto escura</div></div>
+    <div class="card"><div class="info"><div class="iname">Hambúrguer X-Tudo Tradicional</div><div class="idesc">Pão brioche, bife de hambúrguer, bacon em cubos, ovo frito, queijo mussarela, presunto, alface, tomate, batata palha, milho e molho especial. #hamburguer #hamburguerartesanal #hamburgueria #hamburguergourmet #hamburguercaseiro #burger #lanche</div><div class="iprice">R$ 27,90 <span class="old">R$ 29,90</span></div></div><div class="nophoto">sem foto</div></div>
+    <div class="section">Hambúrguer - Leve Segundo por + R$ 14,99</div>
+    <div class="card"><div class="info"><div class="iname">Hambúrguer X-Bacon + R$ 14,99 leve outro burger descontão</div><div class="idesc">Pão brioche, bife de hambúrguer, bacon em cubos, queijo mussarela, alface, tomate, batata palha, milho e molho especial #hamburguer #hamburguerartesanal #hamburgueria</div><div class="iprice">R$ 19,90 <span class="old">R$ 28,00</span></div></div><div class="nophoto" style="background:#3a3a3a;color:#9a9a9a">foto escura</div></div>
+    <div class="section">Hambúrguer Tradicional (1 pessoa) Barato</div>
+    <div class="card"><div class="info"><div class="iname">X-Egg Tradicional</div><div class="idesc">Pão brioche, bife, mussarela,ovo frito, alface, tomate, milho, batata palha e acompanha molho.</div><div class="iprice">R$ 24,90 <span class="old">R$ 26,90</span></div></div><div class="nophoto">sem foto</div></div>
+    <div class="note">⚠ Problemas reais do perfil atual: destaques com refrigerante, hashtags nas descrições, categorias repetidas ("Barato"), itens sem foto e fotos escuras.</div>
+  </div>
+
+  <!-- ===================== DEPOIS ===================== -->
+  <div id="depois" class="hidden">
+    <div class="banner">
+      <div class="logo" style="background:#E63946">LOGO</div>
+      <div><div class="storename">Hamburgueria · proposta de reescrita</div>
+      <div class="storemeta"><span class="star">★ 4.6</span> • Hamburgueria artesanal • Entrega rápida</div></div>
+    </div>
+    <div class="section">🍔 Os Mais Pedidos</div>
+    <div class="card"><div class="info"><div class="iname">X-Bacon da Casa</div><div class="idesc">Pão brioche macio, hambúrguer suculento, bacon crocante em cubos, mussarela derretida, alface fresca, tomate e o molho especial da casa.</div><div class="iprice">R$ 19,90 <span class="old">R$ 27,90</span></div></div><div class="imgwrap"><img class="thumb" loading="lazy" onerror="this.classList.add('quebrada')" src="img/01-x-bacon.jpg" alt=""><span class="tagilus">imagem ilustrativa</span></div></div>
+    <div class="card"><div class="info"><div class="iname">X-Tudo Completo</div><div class="idesc">O campeão da casa: hambúrguer, bacon, ovo, presunto, mussarela, salada fresca, batata palha e molho especial no pão brioche.</div><div class="iprice">R$ 27,90 <span class="old">R$ 29,90</span></div></div><div class="imgwrap"><img class="thumb" loading="lazy" onerror="this.classList.add('quebrada')" src="img/02-x-tudo.jpg" alt=""><span class="tagilus">imagem ilustrativa</span></div></div>
+    <div class="card"><div class="info"><div class="iname">X-Egg Bacon</div><div class="idesc">Hambúrguer no pão brioche com ovo frito, bacon em cubos, mussarela, salada e molho da casa.</div><div class="iprice">R$ 19,90 <span class="old">R$ 29,99</span></div></div><div class="imgwrap"><img class="thumb" loading="lazy" onerror="this.classList.add('quebrada')" src="img/03-x-egg-bacon.jpg" alt=""><span class="tagilus">imagem ilustrativa</span></div></div>
+    <div class="section">🍔 Duplos</div>
+    <div class="card"><div class="info"><div class="iname">X-Tudo Duplo</div><div class="idesc">Para fome grande: 2 hambúrgueres, 2 ovos, dobro de mussarela, bacon, presunto e molho especial.</div><div class="iprice">R$ 39,90 <span class="old">R$ 42,90</span></div></div><div class="imgwrap"><img class="thumb" loading="lazy" onerror="this.classList.add('quebrada')" src="img/04-x-tudo-duplo.jpg" alt=""><span class="tagilus">imagem ilustrativa</span></div></div>
+    <div class="section">🥤 Combos</div>
+    <div class="card"><div class="info"><div class="iname">Combo X-Bacon Individual</div><div class="idesc">X-Bacon + batata frita crocante + Coca-Cola + molhos da casa. Tudo em um.</div><div class="iprice">R$ 34,90 <span class="old">R$ 42,90</span></div></div><div class="imgwrap"><img class="thumb" loading="lazy" onerror="this.classList.add('quebrada')" src="img/05-combo-x-bacon.jpg" alt=""><span class="tagilus">imagem ilustrativa</span></div></div>
+    <div class="card"><div class="info"><div class="iname">Combo X-Tudo Individual</div><div class="idesc">X-Tudo + fritas + Coca-Cola + molhos especiais.</div><div class="iprice">R$ 38,90 <span class="old">R$ 45,90</span></div></div><div class="imgwrap"><img class="thumb" loading="lazy" onerror="this.classList.add('quebrada')" src="img/06-combo-x-tudo.jpg" alt=""><span class="tagilus">imagem ilustrativa</span></div></div>
+    <div class="section">👨‍👩‍👧 Para Dividir</div>
+    <div class="card"><div class="info"><div class="iname">Combo Família (2 pessoas)</div><div class="idesc">2 X-Tudo + batata frita + 2 Coca-Cola. Rende para duas pessoas com gosto.</div><div class="iprice">R$ 64,90 <span class="old">R$ 70,00</span></div></div><div class="imgwrap"><img class="thumb" loading="lazy" onerror="this.classList.add('quebrada')" src="img/07-combo-familia.jpg" alt=""><span class="tagilus">imagem ilustrativa</span></div></div>
+    <div class="section">🎁 Promoção</div>
+    <div class="card"><div class="info"><div class="iname">2º Burger por R$ 14,99</div><div class="idesc">Peça qualquer X-Bacon ou X-Tudo e leve o segundo por apenas R$ 14,99.</div><div class="iprice">a partir de R$ 19,90</div></div><div class="imgwrap"><img class="thumb" loading="lazy" onerror="this.classList.add('quebrada')" src="img/08-promo-segundo-burger.jpg" alt=""><span class="tagilus">imagem ilustrativa</span></div></div>
+    <div class="note" style="background:#e8f6ec;color:#2e6b40">✔ Destaques com os itens mais lucrativos • descrições limpas e apetitosas • categorias organizadas • fotos padronizadas em todos os itens.</div>
+    <div class="note" style="background:#fff8e6;color:#8a6d1a">📸 <b>Sobre as imagens desta amostra.</b> Foram geradas por IA apenas para ilustrar o efeito da reorganização — nenhuma delas retrata um prato real desta loja. A plataforma permite foto gerada por IA desde que represente fielmente o produto entregue, e recomenda foto real, que converte mais. Numa aplicação de verdade, a etapa final seria fotografia do prato ou, no mínimo, imagem fiel e rotulada como ilustrativa — descumprir a fidelidade expõe a loja a moderação e o consumidor a propaganda enganosa.</div>
+  </div>
+
+  <div class="footer">Amostra produzida durante o desenvolvimento da ferramenta. O restaurante analisado é real, mas seu nome e sua marca foram removidos. Imagens geradas por IA e rotuladas como ilustrativas. Para um cardápio publicado, o caminho recomendado é foto real tratada (Procon-SP orienta rotulagem clara quando a imagem não é do produto entregue).</div>
+</div>
+<script>
+function show(which){
+  document.getElementById('antes').classList.toggle('hidden', which!=='antes');
+  document.getElementById('depois').classList.toggle('hidden', which!=='depois');
+  document.getElementById('tabA').classList.toggle('active', which==='antes');
+  document.getElementById('tabD').classList.toggle('active', which==='depois');
+}
+</script>
+</body>
+</html>
